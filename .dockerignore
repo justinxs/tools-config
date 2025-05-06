@@ -1,0 +1,11 @@
+# 忽略开发依赖文件
+node_modules
+src
+*.ts
+*.tsx
+*.log
+.vscode
+.git
+Dockerfile
+.dockerignore
+pnpm-lock.yaml # ← 若你不打算在容器中 install，可排除

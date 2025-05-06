@@ -1,0 +1,19 @@
+FROM node:22.15.0-slim
+
+# 设置环境变量
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+# 启用 corepack 并激活 yarn（可选，仅用于运行时）
+RUN corepack enable && corepack prepare yarn@latest --activate
+
+# 拷贝必要文件（构建产物 + package.json + lock）
+COPY package.json yarn.lock ./
+# 若生产时还需安装依赖（建议避免）：yarn install --prod
+COPY dist ./dist
+# 若要保留本地 node_modules，则取消注释下面两行
+# COPY node_modules ./node_modules
+
+# 设置默认启动命令
+CMD ["node", "dist/index.js"]
